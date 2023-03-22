@@ -16,7 +16,8 @@ public class GameplayController : MonoBehaviour
             Vector3 randomVector3 = new Vector3(
                 Random.Range(-config.enemyXDistance, config.enemyXDistance), 
                 Random.Range(-config.enemyYDistance, config.enemyYDistance), 
-                Random.Range(-config.enemyZDistance, config.enemyZDistance));
+                Random.Range(-config.enemyZDistance, config.enemyZDistance)
+                );
 
             Instantiate(enemy, randomVector3, Quaternion.identity);
         }

@@ -15,12 +15,12 @@ public class CameraController : MonoBehaviour
 
     void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.lockState = CursorLockMode.Locked;
     }
 
     void LateUpdate()
     {
-
+        //An early out in case there is no target. used when the player is destroyed
         if (!target) return;
 
         currentX += Input.GetAxis("Mouse X") * sensitivity;
