@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d17a6e5f6509c94c8cbc9956be8a1c4, type: 3}
+  m_Name: SceneConfig
+  m_EditorClassIdentifier: 
+  numberOfEnemies: 100
+  enemyXDistance: 20
+  enemyYDistance: 20
+  enemyZDistance: 20
+  position1: {x: 10, y: 10, z: 18}
+  position2: {x: -15.06, y: -10, z: -20.1}
+  position3: {x: -19, y: 16.32, z: 14.56}
+  playerSpeed: 5
