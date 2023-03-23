@@ -16,7 +16,8 @@ MonoBehaviour:
   enemyXDistance: 20
   enemyYDistance: 20
   enemyZDistance: 20
-  position1: {x: 10, y: 10, z: 18}
-  position2: {x: -15.06, y: -10, z: -20.1}
-  position3: {x: -19, y: 16.32, z: 14.56}
+  positions:
+  - {x: 9.83, y: 23.04, z: 16.33}
+  - {x: -11.79, y: 6.24, z: -3.84}
+  - {x: 7.91, y: -9.15, z: -13.43}
   playerSpeed: 5

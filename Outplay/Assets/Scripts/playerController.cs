@@ -26,7 +26,6 @@ public class playerController : MonoBehaviour
     void FixedUpdate()
     {
         moveToGoal();
-        transform.LookAt(goalHandler.getGoalPosition());
     }
 
     void moveToGoal() 
