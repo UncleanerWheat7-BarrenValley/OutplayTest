@@ -16,15 +16,14 @@ public class ExplosionController : MonoBehaviour
         if (GetComponent<AudioSource>())
         {    
             //There are a lot of sounds for the explosion so here I get the number of clips and choose one at random when the clip is played
-            foreach (AudioClip sound in Resources.LoadAll<AudioClip>("explosionsoundslite/sounds/Explosion"))
+            foreach (AudioClip sound in Resources.LoadAll<AudioClip>("explosionsoundslite/sounds"))
             {
                 numberOfSoundEffects++;
             }
 
             audioSource = GetComponent<AudioSource>();
             int randomSound = Random.Range(1, numberOfSoundEffects);
-            AudioClip audioClip = Resources.Load<AudioClip>("explosionsoundslite/sounds/Explosion" + randomSound.ToString());
-
+            AudioClip audioClip = Resources.Load<AudioClip>("explosionsoundslite/sounds/Explosion" + randomSound.ToString());            
             audioSource.clip = audioClip;
             audioSource.Play();
         }

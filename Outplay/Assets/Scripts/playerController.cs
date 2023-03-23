@@ -1,17 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class playerController : MonoBehaviour
 {
-    public ParticleSystem[] explosionParticles;
 
-    private Vector3[] goalPositionArray;
-    private int currentGoal;
-    private bool moving;
+    public delegate void playerDied();
+    public static event playerDied onPlayerDeath;
+    
     private Config config;
     private Animator anim;
-    private Rigidbody rb;
+    private GoalHandler goalHandler;
+    private ExplosionHandler explosionHandler;
 
     DestroySelf destroySelf;
     private void Start()
@@ -20,42 +18,26 @@ public class playerController : MonoBehaviour
         config = Resources.Load<Config>("Config/SceneConfig");
         anim = GetComponent<Animator>();
         destroySelf = GetComponent<DestroySelf>();
-        rb = GetComponent<Rigidbody>();
-
-
-        currentGoal = 0;
-        moving = true;
-        goalPositionArray = new[] { config.position1, config.position2, config.position3 };
+        goalHandler = GetComponent<GoalHandler>();
+        explosionHandler = GetComponent<ExplosionHandler>();
     }
 
     //using fixed update as this will be in step with the rigid body and should stop the player begin able to teleport through the enemies...hopefully
     void FixedUpdate()
     {
-        //An early out to stop the loop if the player has reached their goal
-        if (!moving) return;
-
         moveToGoal();
-        handleReachingGoals();
+        transform.LookAt(goalHandler.getGoalPosition());
     }
 
     void moveToGoal() 
     {
-        transform.position = Vector3.MoveTowards(transform.position, goalPositionArray[currentGoal], config.playerSpeed * Time.deltaTime);    
-    }
+        Vector3 goalPosition = goalHandler.getGoalPosition();
+        transform.position = Vector3.MoveTowards(transform.position, goalPosition, config.playerSpeed * Time.deltaTime);
 
-    void handleReachingGoals()
-    {
-        if (transform.position == goalPositionArray[currentGoal] && currentGoal < 2)
+        if (transform.position == goalHandler.getGoalPosition()) 
         {
-            currentGoal++;
+            goalHandler.updateGoal();
         }
-        else if (transform.position == goalPositionArray[currentGoal] && currentGoal == 2)
-        {
-            moving = false;
-            anim.SetTrigger("Finish");
-        }
-
-        transform.LookAt(goalPositionArray[currentGoal]);
     }
 
     //this is public so I could make use of it in the animator    
@@ -63,18 +45,20 @@ public class playerController : MonoBehaviour
     {
         explosions();
         destroySelf.destroyGameobject();
+        onPlayerDeath();
+    }
+
+    public void playFinishAnimation() 
+    {
+        anim.SetTrigger("Finish");
     }
 
     void explosions()
     {
-        //I have two explosions so I created an array in case I wanted to add more in the future
-        foreach (ParticleSystem particleSystem in explosionParticles)
-        {
-            Instantiate(particleSystem, transform.position, transform.rotation);
-        }
+        explosionHandler.addExplosions();
     }
 
-    private void OnTriggerEnter(Collider collision)
+    void OnTriggerEnter(Collider collision)
     {
         if (collision.tag == "Enemy")
         {

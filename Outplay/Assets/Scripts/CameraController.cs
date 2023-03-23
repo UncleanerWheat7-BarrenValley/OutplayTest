@@ -13,11 +13,6 @@ public class CameraController : MonoBehaviour
     private float currentX = 0.0f;
     private float currentY = 0.0f;
 
-    void Start()
-    {
-        //Cursor.lockState = CursorLockMode.Locked;
-    }
-
     void LateUpdate()
     {
         //An early out in case there is no target. used when the player is destroyed
